@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Qualified Census Tracts</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+<style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+ 
+<script>
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoibmV3dXJiYW5tZWNocyIsImEiOiJja2JiamtmcHEwMXpiMnJwcmJqMnZtcm0wIn0.d3fLu06Sb9axgVKWKNpdfA';
+    
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v8',
+        zoom: 11,
+        center: [-71.054, 42.3388],
+        hash: true
+    });
+     
+    map.on('load', () => {
+        map.addSource('qct', {
+            type: 'geojson',
+            data: 'qct-boston.geojson'
+        });
+
+        map.addLayer({
+            'id': 'qct-fill',
+            'type': 'fill',
+            'source': 'qct', // reference the data source
+            'layout': {},
+            'paint': {
+            'fill-color': '#0080ff', // blue color fill
+            'fill-opacity': 0.35
+        }
+        });
+
+        map.addLayer({
+            'id': 'outline',
+            'type': 'line',
+            'source': 'qct',
+            'layout': {},
+            'paint': {
+            'line-color': '#333',
+            'line-width': 1
+        }
+    });
+    });
+</script>
+ 
+</body>
+</html>
