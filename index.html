@@ -32,6 +32,8 @@
             data: 'qct-boston.geojson'
         });
 
+        map.addControl(new mapboxgl.NavigationControl());
+
         map.addLayer({
             'id': 'qct-fill',
             'type': 'fill',
